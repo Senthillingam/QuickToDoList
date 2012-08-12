@@ -408,7 +408,7 @@ $(function () {
 			this.$('#settings-bar').html(this.settingsTemplate({
 				total:      length
 			}));
-			document.title = 'Checklist (' + this.collection.remaining().length + ')';
+			document.title = 'QuickToDoList (' + this.collection.remaining().length + ')';
 			return this;
 		},
 
