@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang="en" manifest="web.appcache"> 
+<head> 
+<meta charset="utf-8" />
+<title>Quick To Do List</title>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<meta name="description" content="Quick To Do List is simple web app for creating checklist or shopping lists." />
+
+<meta name="format-detection" content="telephone=no" />
+
+
+<link rel="stylesheet" href="css/styles.css" />
+
+
+<script>
+document.write('<script src=js/libs/' +
+('__proto__' in {} ? 'zepto/zepto-min' : 'jquery/jquery-min') +
+'.js><\/script>')
+</script>
+
+<script src="js/utils/json2.js"></script>
+<script src="js/utils/tap.js"></script>
+<script src="js/libs/underscore/underscore-min.js"></script>
+<script src="js/libs/backbone/backbone-min.js"></script>
+<script src="js/utils/backbone.localStorage-min.js"></script>
+<script src="js/main.js"></script>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/iOS-144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/iOS-114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/iOS-72.png" />
+<link rel="apple-touch-icon-precomposed" href="images/iOS-57.png" />
+<link rel="icon" href="images/iOS-57.png" />
+
+</head>
+
+<body>
+<div id="app-view"></div>
+
+
+<script type="text/template" id="empty-list-template">
+	<% if (total === 0) { %>
+        <li class="empty"><span id="arrow">&uarr;</span></li>
+		<li class="empty">Add an item to get started.</li>
+	<% } %> 		
+</script>
+
+
+<script type="text/template" id="list-template">
+	<form id="new-item-bar">
+		<input type="text" id="new-item-name" placeholder="Add an item&hellip;">
+		<button type="button" id="add-button">Add</button>
+	</form>
+	<div id="wrapper">
+		<div id="scroller">
+			<div id="content">
+          		<ul id="todo-list">
+          			<li id="todo-stats"></li>
+          		</ul>
+          		<ul id="empty-list">
+          		</ul>
+          		<div id="settings-bar"></div>
+          	</div>
+		</div>			
+	</div>
+	<p class="hide" id="edit_label">Edit item</p>
+	<p class="hide" id="settings_label">Settings</p>
+</script>
+
+
+<script type="text/template" id="item-template">
+	<input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+	<label class="item-text <%= done ? 'done' : '' %>"></label>
+	<div class="edit" role="button" aria-labelledby="edit_label" tabindex="0"></div>
+</script>
+
+
+<script type="text/template" id="totals-template">
+    <% if (total) { %>
+			<span id="total-value">Completed: <%= done %></span>
+			<span id="remaining-value">Remaining: <%= remaining %></span>
+	<% } %>
+</script>
+
+
+<script type="text/template" id="settings-bar-template">
+	<% if (total) { %>
+		<div class="settings" role="button" aria-labelledby="settings_label" tabindex="0"></div>
+	<% } %>
+</script>
+
+
+<script type="text/template" id="edit-template">
+	<form class="edit-form">
+		<fieldset>
+			<input type="text" id="edit-field" maxlength="75" autocorrect placeholder="Item Name" value="<%= text %>"/>
+			<button id="save-edit" type="button">Done</button>
+		</fieldset>
+		<ul>
+			<li>
+				<input id="edit-completed" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+				<label onclick id="completed-label" for="edit-completed">Mark completed</label>
+			</li>
+			<li>
+				<input type="checkbox" id="clear" />
+				<label onclick id="clear-label" for="clear">Clear item</label>
+			</li>
+		</ul>
+		
+	</form>
+</script>
+
+
+<script type="text/template" id="settings-template">
+	<fieldset id="settingsform">
+		<button type="button" id="close-settings">Done</button>
+	</fieldset>
+	<ul class="settings-list">
+		<li>
+			<input type="checkbox" id="clear-completed" />
+			<label onclick id="clear-completed-label" for="clear-completed">Clear completed</label>
+		</li>
+		<li>
+			<input type="checkbox" id="clear-all" />
+			<label onclick id="clear-all-label" for="clear-all">Clear all</label>
+		</li>
+		<li>
+			<input type="checkbox" id="uncheck-all" />
+			<label onclick id="check-all-label" for="uncheck-all">Uncheck all</label>
+		</li>
+	</ul>
+	
+</script>
+
+</body>
+</html> 
